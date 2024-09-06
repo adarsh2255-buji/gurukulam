@@ -1,27 +1,27 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
+import asyncHandler from 'express-async-handler';
 import StudentData from '../models/studentsData.js';
-import asyncHanlder from 'express-async-handler'
 
-//token verification
-const protectMiddleware = asyncHanlder(async(req, res, next) =>{
+const protect = asyncHandler(async(req, res, next) => {
     let token;
-    if(req.cookies.token) {
+    console.log('Cookies:', req.cookies);
+    
+    token = req.cookies.jwt;
+    // Debugging: Check if token is retrieved
+    console.log('Token:', token)
+    if(token) {
         try {
-            token = req.cookies.token;
-            console.log(token);
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             req.student = await StudentData.findById(decoded.id);
-            if(!req.user) {
-                throw new Error();
-            }
-            next();
+            next()
         } catch (error) {
-            console.error(error);
-            res.status(401).json({ message: "Not authorized, token failed" });
+            res.status(401);
+            throw new Error('Not authorized, invalid token')
         }
     } else {
-        res.status(401).json({ message: "Not authorized, no token" });
+        res.status(401);
+        throw new Error('Not authorized, no token')
     }
-});
+})
 
-export default protectMiddleware;
+export default protect;

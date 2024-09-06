@@ -194,7 +194,7 @@ const loginStudent = asyncHandler(async(req, res) =>{
 // @desc Student logout
 // @route /student/logout
 const logoutStudent = asyncHandler(async(req, res) => {
-    res.cookie('token', '', {
+    res.cookie('jwt', '', {
         httpOnly: true,
         expires: new Date(0)
     })

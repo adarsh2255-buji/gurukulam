@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import connectDB from './config/dbConfig.js';
 import studentRoutes from './routes/studentRouter.js'
+import adminRoutes from './routes/adminRoutes.js'
 const port = process.env.PORT || 3000;
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/api/students', studentRoutes);
+app.use('/api/admin', adminRoutes);
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
