@@ -9,4 +9,4 @@ router.route('/').post(createStudent).get(getAllStudents);
 router.route('/:id').get(protect, getStudentById).put(protect, updateStudent).delete(deleteStudent)
 router.route('/login').post(loginStudent)
 router.route('/logout').post(logoutStudent)
-export default router;
+export default router;  

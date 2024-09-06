@@ -4,7 +4,7 @@ import StudentData from '../models/studentsData.js';
 
 const protect = asyncHandler(async(req, res, next) => {
     let token;
-    console.log('Cookies:', req.cookies);
+     console.log('Cookies:', req.cookies);
     
     token = req.cookies.jwt;
     // Debugging: Check if token is retrieved
@@ -15,7 +15,7 @@ const protect = asyncHandler(async(req, res, next) => {
             req.student = await StudentData.findById(decoded.id);
             next()
         } catch (error) {
-            res.status(401);
+            res.status(401); 
             throw new Error('Not authorized, invalid token')
         }
     } else {

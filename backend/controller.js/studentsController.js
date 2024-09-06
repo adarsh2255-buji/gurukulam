@@ -114,67 +114,15 @@ const deleteStudent = asyncHandler(async (req, res) =>{
     }
 });
 
-// @desc Student login
-// @route POST api/student/login
 
-
-
-// const generateToken = (id) => {
-//     return jwt.sign({ id }, process.env.JWT_SECRET, 
-//     { expiresIn: '30d' });
-// };
-
-// const generateToken = (student) => {
-//     return jwt.sign({
-//         id: student._id,
-//         name : student.name,
-//         admissionNumber : student.admissionNumber,
-//         class : student.class,
-//     }, process.env.JWT_SECRET, { expiresIn : '24h'})
-// }
-
-// const loginStudent = asyncHandler(async (req, res) =>{
-//     const { admissionNumber, dateOfBirth } = req.body;
-
-//     const student = await StudentData.findOne({ admissionNumber });
-
-//     //no student 
-//     if(!student) {
-//         res.status(401);
-//         throw new Error('Invalid admission number or date of birth')
-//     }
-
-//     // Compare date of birth
-//     const formattedDOB = student.dateOfBirth.toISOString().split('T')[0];
-//     if(formattedDOB  === dateOfBirth) {
-        
-//         //Generate JWT 
-//       const token = generateToken(student);
-
-//         //Set token in cookie
-//         res.cookie('token', token, {
-//             httpOnly: true,
-//             secure: process.env.NODE_ENV,
-//             maxAge: 24 * 60 * 60 * 1000
-//         });
-        
-//         return res.json({
-//             message : "logged in successfully",
-//             id: student._id,
-//             name : student.name,
-//             admissionNumber : student.admissionNumber,
-//             class : student.class,
-//         })
-//     } else {
-//         res.status(401);
-//         throw new Error('Invalid admission number or date of birth')
-//     }
-// });
 
 const loginStudent = asyncHandler(async(req, res) =>{
     const { admissionNumber, dateOfBirth } = req.body;
     
     const student = await StudentData.findOne({ admissionNumber });
+    if(!student) {
+        return res.status(401).json({ message: 'Student not found' });
+    }
     
     if(student && student.dateOfBirth.toISOString().split('T')[0] === dateOfBirth) {
         generateToken(res, student._id)
