@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import bcrypt from 'bcrypt';
 import Admin from '../models/admin.js';
 import generateToken from '../utils/generateToken.js';
+import StudentData from '../models/studentsData.js';
 
 // @desc create a new admin account
 // @route POST/api/admin/create
@@ -72,6 +73,71 @@ const loginAdmin = asyncHandler(async(req, res) =>{
         throw new Error('Invalid email or password ')
     }
 });
-export {createAdminAccount, 
-    loginAdmin
+
+// @desc admin logout
+// @route POST/api/admin/logout
+const logoutAdmin = asyncHandler(async(req, res) => {
+    res.clearCookie('jwt');
+    res.json({ message: 'Admin logged out' });
+});
+
+// @desc get all students  
+// @route GET/api/admin/getAllStudents
+const getAllStudents = asyncHandler(async(req, res) =>{
+    const students = await StudentData.find({});
+    res.json(students);
+})
+
+
+//@desc Get students by ID
+// @route GET /api/students/:id
+
+const getStudentById = asyncHandler(async(req, res) =>{
+    const student = await StudentData.findById(req.params.id);
+
+    if(student) {
+       return res.json(student);
+    } else {
+        res.status(404);
+        throw new Error('Student not found')
+    }  
+});
+
+// @desc filter students
+// route GET /api/students
+const getFilteredStudents = asyncHandler(async(req, res) =>{
+    //Extract query parameter for filtering and sorting
+    const {
+        class : studentClass,
+        name,
+        admissionNumber,
+        sortBy = 'admissionNumber',
+        order = 'asc'} = req.query
+        
+        // Build the filter object based on the available query parameters
+        const filter = {};
+        if(studentClass) {
+            filter.class = studentClass;
+        }
+        if(name) {
+            filter.name = new RegExp(name, 'i');// Case-insensitive search by name
+        }
+        if(admissionNumber) {
+            filter.admissionNumber = admissionNumber;
+        }
+        
+        // Sorting option (asc for ascending or desc for descending)
+        const sortOrder = order === 'desc'? -1 : 1;
+
+        // Fetch filtered and sorted student data from the database
+        const students = await StudentData.find(filter).sort({ [sortBy]: sortOrder });
+        res.status(200).json(students)
+})
+export {
+    createAdminAccount, 
+    loginAdmin,
+    logoutAdmin,
+    getAllStudents,
+    getStudentById,
+    getFilteredStudents
 };

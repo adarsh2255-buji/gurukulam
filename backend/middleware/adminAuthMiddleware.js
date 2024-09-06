@@ -4,11 +4,8 @@ import Admin from '../models/admin.js';
 
 const adminProtect = asyncHandler(async (req, res, next) =>{
     let token;
-    console.log('Cookies:', req.cookies);
-    
-    token = req.cookies.token;
-    // Debugging: Check if token is retrieved
-    console.log('Token:', token)
+ 
+    token = req.cookies.jwt;
     if(token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);

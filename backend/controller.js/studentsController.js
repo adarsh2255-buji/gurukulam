@@ -53,28 +53,8 @@ const createStudent = asyncHandler(async(req, res) =>{
     })}
 })
 
-// @desc get all students  
-// @route GET/api/studetns
-const getAllStudents = asyncHandler(async(req, res) =>{
-    const students = await StudentData.find({});
-    res.json(students);
-})
 
-//@desc Get students by ID
-// @route GET /api/students/:id
 
-const getStudentById = asyncHandler(async(req, res) =>{
-    const student = await StudentData.findById(req.params.id);
-
-    if(student) {
-       return res.json(student);
-    } else {
-        res.status(404);
-        throw new Error('Student not found')
-    }
-
-  
-});
 
 // @desc Update student by ID
 // @route PUT/api/student/:id
@@ -152,8 +132,6 @@ const logoutStudent = asyncHandler(async(req, res) => {
 });
 
 export { createStudent, 
-    getAllStudents, 
-    getStudentById, 
     updateStudent, 
     deleteStudent,
     loginStudent,
