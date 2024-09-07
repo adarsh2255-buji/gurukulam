@@ -5,6 +5,7 @@ import cors from 'cors';
 import connectDB from './config/dbConfig.js';
 import studentRoutes from './routes/studentRouter.js'
 import adminRoutes from './routes/adminRoutes.js'
+import marklistRoutes from './routes/marklistRoutes.js' 
 const port = process.env.PORT || 3000;
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(cors());
 
 app.use('/api/students', studentRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/marklist', marklistRoutes);
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })

@@ -4,6 +4,7 @@ const studentsDataSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
+        set: (value) => value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
     },
     class: {
         type: String,
@@ -23,6 +24,7 @@ const studentsDataSchema = mongoose.Schema({
     schoolName : {
         type: String,
         required: true,
+        set: (value) => value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
     },
     dateOfBirth : {
         type: Date,
@@ -35,14 +37,17 @@ const studentsDataSchema = mongoose.Schema({
     fatherName : {
         type: String,
         required: true,
+        set: (value) => value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
     },
     motherName : {
         type: String,
         required: true,
+        set: (value) => value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
     },
     address : {
         type: String,
         required: true,
+        set: (value) => value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')
     },
     contactNumber : {
         type: String,
