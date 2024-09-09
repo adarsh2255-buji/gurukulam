@@ -11,11 +11,20 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { Link as RouterLink } from 'react-router-dom'
 import { useState } from 'react';
+import Registration from './Registration';
 
 
 
-const pages = ['HOME', 'REGISTRATION', 'LOGIN', 'ADMIN', 'ABOUT', 'CONTACT','LOGOUT' ]
+const pages = [
+  {name: 'HOME', path: '/'},
+  {name: 'CONTACT', path: '/contact'},
+  {name: 'REGISTRATION', path: '/registration'},
+  {name: 'LOGIN',path:'/login'},
+  {name: 'ADMIN',path:'/logout'},
+  {name: 'LOGOUT', path: '/logout'}]
+
 const Header = () => {
 
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -36,10 +45,10 @@ const Header = () => {
 
   return (
     <>
-     <AppBar position="static" style={{ background: '#d50000' }} >
+     <AppBar position="static" sx={{background: '#d50000'}} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'none', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -86,8 +95,8 @@ const Header = () => {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }} component={RouterLink} to={page.path}>{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -109,16 +118,18 @@ const Header = () => {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            GURUKULAM
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
+                component={RouterLink}
+                to={page.path}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
