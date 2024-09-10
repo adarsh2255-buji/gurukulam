@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import Root from './Components/Root'
 import {createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Registration from './Components/Registration'
+import Login from './Components/Login'
 
 
 const router = createBrowserRouter([
@@ -12,6 +13,9 @@ const router = createBrowserRouter([
     children :[{
       path: '/registration',
       element: <Registration />,
+    }, {
+      path: '/login',
+      element: <Login />
     }]
   }
 ])
