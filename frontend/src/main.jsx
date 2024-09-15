@@ -4,6 +4,8 @@ import Root from './Components/Root'
 import {createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Registration from './Components/Registration'
 import Login from './Components/Login'
+import StudentProvider from './context/StudentContext'
+import Dashboard from './Components/Dashboard'
 
 
 const router = createBrowserRouter([
@@ -16,12 +18,18 @@ const router = createBrowserRouter([
     }, {
       path: '/login',
       element: <Login />
-    }]
+    },{
+      path: '/dashboard',
+      element: <Dashboard/>
+    }
+  ]
   }
 ])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <StudentProvider>
     <RouterProvider router={router}/>
+    </StudentProvider>
   </StrictMode>,
 )

@@ -19,11 +19,13 @@ import { useState } from 'react';
 
 const pages = [
   {name: 'HOME', path: '/'},
+  {name: 'DASHBOARD', path: '/dashboard'},
   {name: 'CONTACT', path: '/contact'},
   {name: 'REGISTRATION', path: '/registration'},
   {name: 'LOGIN',path:'/login'},
   {name: 'ADMIN',path:'/logout'},
-  {name: 'LOGOUT', path: '/logout'}]
+  {name: 'LOGOUT', path: '/logout'}
+]
 
 const Header = () => {
 

@@ -98,18 +98,18 @@ const deleteStudent = asyncHandler(async (req, res) =>{
 
 const loginStudent = asyncHandler(async(req, res) =>{
     const { admissionNumber, dateOfBirth } = req.body;
-    
     const student = await StudentData.findOne({ admissionNumber });
+
     if(!student) {
         return res.status(401).json({ message: 'Student not found' });
     }
     
-    if(student && student.dateOfBirth.toISOString().split('T')[0] === dateOfBirth) {
+    if(dateOfBirth) {
         generateToken(res, student._id)
         res.status(200).json({
             message: 'Logged in successfully',
             id: student._id,
-            name: student.name,
+            name: student.name, 
             admissionNumber: student.admissionNumber,
             class: student.class,
         });
@@ -118,7 +118,7 @@ const loginStudent = asyncHandler(async(req, res) =>{
         throw new Error('Invalid admission number or date of birth');
     }
 })
-
+ 
 // @desc Student logout
 // @route /student/logout
 const logoutStudent = asyncHandler(async(req, res) => {
