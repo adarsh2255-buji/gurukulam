@@ -103,7 +103,7 @@ const loginStudent = asyncHandler(async(req, res) =>{
     if(!student) {
         return res.status(401).json({ message: 'Student not found' });
     }
-    
+
     if(dateOfBirth) {
         generateToken(res, student._id)
         res.status(200).json({
@@ -112,6 +112,11 @@ const loginStudent = asyncHandler(async(req, res) =>{
             name: student.name, 
             admissionNumber: student.admissionNumber,
             class: student.class,
+            syllabus: student.syllabus,
+            medium: student.medium,
+            schoolName: student.schoolName,
+            dateOfBirth: student.dateOfBirth,
+            fatherName: student.fatherName,
         });
     }else{
         res.status(401);

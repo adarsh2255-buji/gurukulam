@@ -16,7 +16,6 @@ const StudentProvider = ({children}) => {
     const handleLogin = (studentData) => {
     setstudent(studentData);
     localStorage.setItem('student', JSON.stringify(studentData));
-    localStorage.setItem('token', studentData.token);
 }
 
 return(

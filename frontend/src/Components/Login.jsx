@@ -38,7 +38,7 @@ const Login = () => {
     //     dateOfBirth: studentData.dateOfBirth.toISOString().split('T')[0],
     // };
       try {
-        const response = await api.post('/students/login', studentData)
+        const response = await api.post('/students/login', studentData, { withCredentials: true })
         const data = response.data;
         console.log(data)
         if(data) {
