@@ -12,25 +12,28 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link as RouterLink } from 'react-router-dom'
-import { useState } from 'react';
-
-
-
-
-const pages = [
-  {name: 'HOME', path: '/'},
-  {name: 'DASHBOARD', path: '/dashboard'},
-  {name: 'CONTACT', path: '/contact'},
-  {name: 'REGISTRATION', path: '/registration'},
-  {name: 'LOGIN',path:'/login'},
-  {name: 'ADMIN',path:'/logout'},
-  {name: 'LOGOUT', path: '/logout'}
-]
+import { useContext, useState } from 'react';
+import { StudentContext } from '../context/StudentContext';
 
 const Header = () => {
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+
+    const { student } = useContext(StudentContext)
+
+    //pages
+    const pages = student ? [
+      { name: 'HOME', path: '/' },
+      { name: 'DASHBOARD', path: '/dashboard' },
+      { name: 'CONTACT', path: '/contact' },
+      { name: 'LOGOUT', path: '/logout' }
+    ] : [
+      { name: 'HOME', path: '/' },
+      { name: 'CONTACT', path: '/contact' },
+      { name: 'REGISTRATION', path: '/registration' },
+      { name: 'LOGIN', path: '/login' }
+    ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
