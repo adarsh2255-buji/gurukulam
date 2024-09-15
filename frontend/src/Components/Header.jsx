@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react';
 import { StudentContext } from '../context/StudentContext';
 
@@ -19,8 +19,9 @@ const Header = () => {
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+    const navigate = useNavigate()
 
-    const { student } = useContext(StudentContext)
+    const { student, handleLogout } = useContext(StudentContext)
 
     //pages
     const pages = student ? [
@@ -32,7 +33,8 @@ const Header = () => {
       { name: 'HOME', path: '/' },
       { name: 'CONTACT', path: '/contact' },
       { name: 'REGISTRATION', path: '/registration' },
-      { name: 'LOGIN', path: '/login' }
+      { name: 'LOGIN', path: '/login' },
+      { name: 'ADMIN', path: '/admin' }
     ];
 
   const handleOpenNavMenu = (event) => {
@@ -47,6 +49,12 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  //handle logout 
+  const handleLogoutClick = () => {
+    handleLogout();
+    navigate('/login');
+  }
 
   return (
     <>
@@ -101,7 +109,14 @@ const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }} component={RouterLink} to={page.path}>{page.name}</Typography>
+                  {
+                    page.name === 'LOGOUT' ? (
+                      <Typography sx={{ textAlign: 'center' }} onClick={handleLogoutClick}>{page.name}</Typography>
+                    ) : (
+                      <Typography sx={{ textAlign: 'center' }} component={RouterLink} to={page.path}>{page.name}</Typography>
+                    )
+                  }
+                 
                 </MenuItem>
               ))}
             </Menu>
@@ -129,9 +144,9 @@ const Header = () => {
             {pages.map((page) => (
               <Button
                 key={page.name}
-                component={RouterLink}
+                component={page.name === 'LOGOUT' ? 'button' : RouterLink}
                 to={page.path}
-                onClick={handleCloseNavMenu}
+                onClick={page.name === 'LOGOUT' ? handleLogoutClick : handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.name}

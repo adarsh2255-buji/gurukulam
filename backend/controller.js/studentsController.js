@@ -117,6 +117,10 @@ const loginStudent = asyncHandler(async(req, res) =>{
             schoolName: student.schoolName,
             dateOfBirth: student.dateOfBirth,
             fatherName: student.fatherName,
+            motherName: student.motherName,
+            address: student.address,
+            contactNumber: student.contactNumber,
+            whatsAppNumber: student.whatsAppNumber,
         });
     }else{
         res.status(401);

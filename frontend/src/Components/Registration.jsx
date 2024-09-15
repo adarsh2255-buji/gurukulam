@@ -144,6 +144,7 @@ const Registration = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Date Of Birth"
+                views={['day','month', 'year']}
                 value={studentData.dateOfBirth}
                 onChange={handleDateChange}
               />

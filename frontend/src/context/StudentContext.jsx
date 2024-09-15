@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export const StudentContext = createContext();
 
@@ -18,8 +19,17 @@ const StudentProvider = ({children}) => {
     localStorage.setItem('student', JSON.stringify(studentData));
 }
 
+    //function to handle student logout
+    const handleLogout = () => {
+        setstudent(null);
+        localStorage.removeItem('student');
+        
+        toast.success('Logged out successful')
+    }
+
+
 return(
-    <StudentContext.Provider value={{ student, handleLogin }}>
+    <StudentContext.Provider value={{ student, handleLogin, handleLogout }}>
         {children}
     </StudentContext.Provider>
  );

@@ -33,10 +33,7 @@ const Login = () => {
         toast.error('Please fill in all fields');
         return;
       }
-    //   const formattedData = {
-    //     admissionNumber: studentData.admissionNumber,
-    //     dateOfBirth: studentData.dateOfBirth.toISOString().split('T')[0],
-    // };
+  
       try {
         const response = await api.post('/students/login', studentData, { withCredentials: true })
         const data = response.data;
