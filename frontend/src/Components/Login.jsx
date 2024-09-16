@@ -69,8 +69,10 @@ const Login = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Date Of Birth"
+                views={['day','month', 'year']}
                 value={studentData.dateOfBirth}
                 onChange={handleDateChange}
+                format="DD/MM/YYYY"
               />
             </LocalizationProvider>
           </FormControl>

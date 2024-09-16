@@ -7,6 +7,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 import api from '../api';
+import dayjs from 'dayjs';
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -147,6 +148,7 @@ const Registration = () => {
                 views={['day','month', 'year']}
                 value={studentData.dateOfBirth}
                 onChange={handleDateChange}
+                 format="DD/MM/YYYY"
               />
             </LocalizationProvider>
           </FormControl>
