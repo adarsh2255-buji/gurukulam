@@ -8,6 +8,8 @@ import StudentProvider from './context/StudentContext'
 import Dashboard from './Components/Dashboard'
 import AdminLogin from './Components/Admin/AdminLogin'
 import AdminProvider from './context/AdminContext'
+import GetAllStudents from './Components/Admin/GetAllStudents'
+import StudentsDetails from './Components/Admin/StudentsDetails'
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
     {
       path: '/admin',
       element: <AdminLogin />
+    },
+    {
+      path:'/students',
+      element:<GetAllStudents />
+    },
+    {
+      path: '/studentDetails/:id',
+      element: <StudentsDetails />
     }
   ]
   }

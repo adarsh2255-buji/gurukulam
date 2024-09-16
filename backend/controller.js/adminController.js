@@ -93,14 +93,23 @@ const getAllStudents = asyncHandler(async(req, res) =>{
 // @route GET /api/students/:id
 
 const getStudentById = asyncHandler(async(req, res) =>{
-    const student = await StudentData.findById(req.params.id);
+    const studentId = req.params.id;
+    if (!studentId) {
+        return res.status(400).json({ message: 'Student ID is required' });
+    }
+    try {
+        const student = await StudentData.findById(studentId);
 
-    if(student) {
-       return res.json(student);
-    } else {
-        res.status(404);
-        throw new Error('Student not found')
-    }  
+        if (student) {
+            return res.json(student);
+        } else {
+            res.status(404);
+            throw new Error('Student not found');
+        }
+    } catch (error) {
+        console.error('Error fetching student:', error);
+        res.status(500).json({ message: 'Error fetching student data' });
+    }
 });
 
 // @desc filter students
