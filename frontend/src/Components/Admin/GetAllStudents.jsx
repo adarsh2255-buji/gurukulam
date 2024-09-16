@@ -24,7 +24,6 @@ const GetAllStudents = () => {
 
   //handle more button
   const handleMoreButton = (studentId) =>{
-    console.log(studentId)
     navigate(`/studentDetails/${studentId}`)
   }
   return (

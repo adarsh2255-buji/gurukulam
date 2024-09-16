@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Grid, Typography, Paper, Container } from '@mui/material'
+import { Box, Grid, Typography, Paper, Container, Button } from '@mui/material'
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import api from '../../api';
+import AddMarks from './AddMarks';
 
 const StudentsDetails = () => {
     const { id } = useParams();
     const [student, setStudent] = useState(null);
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchStudent = async () => {
@@ -23,6 +26,11 @@ const StudentsDetails = () => {
             setStudent(null);
         }
     }, [id])
+
+    //handle add mark button
+    const handleAddMark = (studentId) =>{
+        navigate(`/addMarks/${studentId}`)
+      }
   return (
     <>
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
@@ -37,6 +45,13 @@ const StudentsDetails = () => {
           </Grid>
           <Grid item xs={6}>
             <Typography variant="body1">{student.name}</Typography>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Typography variant="body1" fontWeight="bold">Id</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography variant="body1">{student._id}</Typography>
           </Grid>
 
           <Grid item xs={6}>
@@ -121,8 +136,12 @@ const StudentsDetails = () => {
           <Grid item xs={6}>
             <Typography variant="body1">{student.whatsAppNumber}</Typography>
           </Grid>
-        </Grid>
-        
+          <Grid item xs={12} >
+            <Button variant="contained" sx={{bgcolor:'#d50000', margin:'1rem'}} size='small' onClick={()=>handleAddMark(student._id)}>Add Mark</Button>
+            <Button variant="contained" sx={{bgcolor:'#d50000'}} size='small'>Update</Button>
+          </Grid>
+        </Grid> 
+    
       ) : (
         <Typography>Loading student details...</Typography>
       )}

@@ -10,6 +10,7 @@ import AdminLogin from './Components/Admin/AdminLogin'
 import AdminProvider from './context/AdminContext'
 import GetAllStudents from './Components/Admin/GetAllStudents'
 import StudentsDetails from './Components/Admin/StudentsDetails'
+import AddMarks from './Components/Admin/AddMarks'
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
     {
       path: '/studentDetails/:id',
       element: <StudentsDetails />
+    },
+    {
+      path: '/addMarks/:id',
+      element: <AddMarks />
     }
   ]
   }
