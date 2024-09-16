@@ -6,6 +6,8 @@ import Registration from './Components/Registration'
 import Login from './Components/Login'
 import StudentProvider from './context/StudentContext'
 import Dashboard from './Components/Dashboard'
+import AdminLogin from './Components/Admin/AdminLogin'
+import AdminProvider from './context/AdminContext'
 
 
 const router = createBrowserRouter([
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
     {
       path: '/logout',
       element: <Login />
+    },
+    {
+      path: '/admin',
+      element: <AdminLogin />
     }
   ]
   }
@@ -33,7 +39,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <StudentProvider>
-    <RouterProvider router={router}/>
+      <AdminProvider>
+        <RouterProvider router={router}/>
+      </AdminProvider>
     </StudentProvider>
   </StrictMode>,
 )

@@ -14,6 +14,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react';
 import { StudentContext } from '../context/StudentContext';
+import { adminContext } from '../context/AdminContext';
 
 const Header = () => {
 
@@ -22,19 +23,26 @@ const Header = () => {
     const navigate = useNavigate()
 
     const { student, handleLogout } = useContext(StudentContext)
+    const { admin } = useContext(adminContext)
 
     //pages
-    const pages = student ? [
-      { name: 'HOME', path: '/' },
-      { name: 'DASHBOARD', path: '/dashboard' },
-      { name: 'CONTACT', path: '/contact' },
-      { name: 'LOGOUT', path: '/logout' }
-    ] : [
+    const pages = admin ? [
+        { name: 'HOME', path: '/' },
+        { name: 'STUDENTS', path: '/students' },
+        { name: 'CONTACT', path: '/contact' },
+        { name: 'LOGOUT', path: '/logout' },
+    ] : student ?[
+        { name: 'HOME', path: '/' },
+        { name: 'DASHBOARD', path: '/dashboard' },
+        { name: 'CONTACT', path: '/contact' },
+        { name: 'LOGOUT', path: '/logout' },
+    ]:
+    [
       { name: 'HOME', path: '/' },
       { name: 'CONTACT', path: '/contact' },
       { name: 'REGISTRATION', path: '/registration' },
       { name: 'LOGIN', path: '/login' },
-      { name: 'ADMIN', path: '/admin' }
+      { name: 'ADMIN', path: '/admin' },
     ];
 
   const handleOpenNavMenu = (event) => {

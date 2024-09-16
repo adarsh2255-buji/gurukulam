@@ -23,7 +23,7 @@ const StudentProvider = ({children}) => {
     const handleLogout = () => {
         setstudent(null);
         localStorage.removeItem('student');
-        
+        localStorage.removeItem('admin')
         toast.success('Logged out successful')
     }
 
