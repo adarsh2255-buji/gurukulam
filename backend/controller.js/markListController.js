@@ -51,4 +51,27 @@ const createMarkList = asyncHandler(async(req, res) =>{
     res.status(201).json(createdMarkList);
 });
 
-export {createMarkList}
+// @ desc Get mark list for a specific student
+// @route GET/api/marks/:studentId
+
+const getMarkList = asyncHandler(async(req, res) =>{
+    const studentId = req.params.studentId;
+    if (!studentId) {
+        return res.status(400).json({ message: 'Student ID is required' });
+    }
+    try {
+        const markList = await MarkList.find({ studentId });
+        if (!markList) {
+            return res.status(404).json({ message: 'No mark list found for this student' });
+        }
+        res.json(markList);
+    } catch (error) {
+        console.log('Error getting mark list:', error);
+        res.status(500).json({ message: 'Failed to get mark list' });
+    }
+});
+
+export {
+    createMarkList,
+    getMarkList,
+}
