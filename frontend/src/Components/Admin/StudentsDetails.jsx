@@ -4,10 +4,12 @@ import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom'
 import api from '../../api';
 import AddMarks from './AddMarks';
+import ShowMark from './ShowMark';
 
 const StudentsDetails = () => {
     const { id } = useParams();
     const [student, setStudent] = useState(null);
+    const [showMark, setShowMark] = useState();
 
     const navigate = useNavigate()
 
@@ -27,10 +29,16 @@ const StudentsDetails = () => {
         }
     }, [id])
 
-    //handle add mark button
-    const handleAddMark = (studentId) =>{
+      //handle add mark button
+      const handleAddMark = (studentId) =>{
         navigate(`/addMarks/${studentId}`)
       }
+
+      //handle update button
+      const handleUpdateButton = (studentId) =>{
+        navigate(`/updateStudent/${studentId}`)
+      }
+
   return (
     <>
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
@@ -138,7 +146,7 @@ const StudentsDetails = () => {
           </Grid>
           <Grid item xs={12} >
             <Button variant="contained" sx={{bgcolor:'#d50000', margin:'1rem'}} size='small' onClick={()=>handleAddMark(student._id)}>Add Mark</Button>
-            <Button variant="contained" sx={{bgcolor:'#d50000'}} size='small'>Update</Button>
+            <Button variant="contained" sx={{bgcolor:'#d50000'}} size='small'onClick={()=>handleUpdateButton(student._id) }>Update</Button>
           </Grid>
         </Grid> 
     
@@ -147,6 +155,7 @@ const StudentsDetails = () => {
       )}
     </Paper>
   </Box>
+  <ShowMark />
     </>
   )
 }

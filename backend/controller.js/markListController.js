@@ -69,9 +69,29 @@ const getMarkList = asyncHandler(async(req, res) =>{
         console.log('Error getting mark list:', error);
         res.status(500).json({ message: 'Failed to get mark list' });
     }
+}); 
+
+// @desc delete mark list by ID
+// @route DELETE/api/marks/:id
+
+const deleteMarkList = asyncHandler(async (req, res) =>{
+    const markListId = req.params.id;
+
+    if (!markListId) {
+        return res.status(400).json({ message: 'Mark list ID is required' });
+    }
+    const deletedMarkLIst = await MarkList.findByIdAndDelete(markListId);
+    if(deletedMarkLIst) {
+        res.json({ message: 'Mark list deleted successfully' });
+    } else {
+        res.status(404);
+        throw new Error('Mark list not found')
+    }
 });
+
 
 export {
     createMarkList,
     getMarkList,
+    deleteMarkList,
 }
