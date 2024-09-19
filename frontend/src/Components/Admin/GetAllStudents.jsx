@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import api from '../../api';
-import { Box, Button, Paper, Typography } from '@mui/material';
+import { Box, Button, Paper, Typography, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 const GetAllStudents = () => {
   const [ students, setStudents ] = useState([]);
+  const [ search, setSearch ] = useState('');
 
   const navigate = useNavigate();
 
@@ -28,12 +29,23 @@ const GetAllStudents = () => {
   }
   return (
     <div>
+      <Box>
+        <TextField
+        name="class"
+        label="Search Student"
+        variant="outlined"
+        margin="normal"
+        onChange={(e) => setSearch(e.target.value)}
+        />
+      </Box>
       <h2>All Students</h2>
       {students.length === 0 ? (
         <p>Loading...</p>
       ) : (
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-          {students.map((student) => (
+          {students.filter((student) => {
+            return student.class.toLowerCase().includes(search.toLowerCase()) || student.name.toLowerCase().includes(search.toLowerCase()) || student.schoolName.toLowerCase().includes(search.toLowerCase())
+          }).map((student) => (
             <Paper key={student._id} sx={{ padding: 2 }}>
               <Typography variant="h6">{student.name}</Typography>
               <Typography>Class: {student.class}</Typography>
