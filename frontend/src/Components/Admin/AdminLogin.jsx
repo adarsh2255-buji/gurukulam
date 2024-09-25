@@ -30,10 +30,9 @@ const AdminLogin = () => {
         try {
             const response = await api.post('/admin/login', admin, { withCredentials: true})
             const data = response.data;
-            console.log(data)
             if(data){
                 handleLogin(data)
-                navigate('/');
+                navigate('/admin/students');
                 toast.success('Logged in successfully')
             }
         } catch (error) {

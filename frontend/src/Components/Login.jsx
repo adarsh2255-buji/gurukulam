@@ -38,7 +38,6 @@ const Login = () => {
       try {
         const response = await api.post('/students/login', studentData, { withCredentials: true })
         const data = response.data;
-        console.log(data)
         if(data) {
             handleLogin(data)
             navigate('/dashboard')

@@ -1,10 +1,13 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { adminContext } from "./AdminContext";
 
 export const StudentContext = createContext();
 
 const StudentProvider = ({children}) => {
     const [student, setstudent] = useState(null);
+    
+    const { setAdmin } = useContext(adminContext)
 
     useEffect(() => {
         const loggedInStudent = localStorage.getItem('student');
@@ -22,6 +25,7 @@ const StudentProvider = ({children}) => {
     //function to handle student logout
     const handleLogout = () => {
         setstudent(null);
+        setAdmin(null);
         localStorage.removeItem('student');
         localStorage.removeItem('admin')
         toast.success('Logged out successful')

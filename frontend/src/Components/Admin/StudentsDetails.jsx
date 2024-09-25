@@ -31,12 +31,12 @@ const StudentsDetails = () => {
 
       //handle add mark button
       const handleAddMark = (studentId) =>{
-        navigate(`/addMarks/${studentId}`)
+        navigate(`/admin/addMarks/${studentId}`)
       }
 
       //handle update button
       const handleUpdateButton = (studentId) =>{
-        navigate(`/updateStudent/${studentId}`)
+        navigate(`/admin/updateStudent/${studentId}`)
       }
 
   return (

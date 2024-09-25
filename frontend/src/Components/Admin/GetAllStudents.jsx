@@ -3,6 +3,8 @@ import toast from 'react-hot-toast'
 import api from '../../api';
 import { Box, Button, Paper, Typography, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+
 const GetAllStudents = () => {
   const [ students, setStudents ] = useState([]);
   const [ search, setSearch ] = useState('');
@@ -14,7 +16,6 @@ const GetAllStudents = () => {
       try{
         const response = await api.get('/admin/getAllStudents', { withCredentials: true});
         setStudents(response.data);
-      
       } catch(err){
         console.error(err.response?.data?.message || 'Failed to fetch students');
         toast.error('Failed to fetch students');
@@ -25,10 +26,11 @@ const GetAllStudents = () => {
 
   //handle more button
   const handleMoreButton = (studentId) =>{
-    navigate(`/studentDetails/${studentId}`)
+    navigate(`/admin/studentDetails/${studentId}`)
   }
   return (
     <div>
+      {/* Live filter */}
       <Box>
         <TextField
         name="class"

@@ -23,15 +23,10 @@ const Header = () => {
     const navigate = useNavigate()
 
     const { student, handleLogout } = useContext(StudentContext)
-    const { admin } = useContext(adminContext)
+    // const { admin, setAdmin } = useContext(adminContext)
 
     //pages
-    const pages = admin ? [
-        { name: 'HOME', path: '/' },
-        { name: 'STUDENTS', path: '/students' },
-        { name: 'CONTACT', path: '/contact' },
-        { name: 'LOGOUT', path: '/logout' },
-    ] : student ?[
+    const pages = student ?[
         { name: 'HOME', path: '/' },
         { name: 'DASHBOARD', path: '/dashboard' },
         { name: 'CONTACT', path: '/contact' },
@@ -42,7 +37,7 @@ const Header = () => {
       { name: 'CONTACT', path: '/contact' },
       { name: 'REGISTRATION', path: '/registration' },
       { name: 'LOGIN', path: '/login' },
-      { name: 'ADMIN', path: '/admin' },
+      // { name: 'ADMIN', path: '/admin' },
     ];
 
   const handleOpenNavMenu = (event) => {
@@ -129,7 +124,6 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -193,3 +187,13 @@ const Header = () => {
 }
 
 export default Header
+
+
+
+
+// admin ? [
+//   { name: 'HOME', path: '/' },
+//   { name: 'STUDENTS', path: '/students' },
+//   { name: 'CONTACT', path: '/contact' },
+//   { name: 'LOGOUT', path: '/logout' },
+// ] : 

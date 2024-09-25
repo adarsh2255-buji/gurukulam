@@ -1,23 +1,25 @@
 import { Container, Typography, Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, CircularProgress, Button } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../api';
 import toast from 'react-hot-toast';
+import { StudentContext } from '../../context/StudentContext';
+import { adminContext } from '../../context/AdminContext';
 
-const ShowMark = () => {
+const ShowMark = ({ studentId }) => {
     const { id } = useParams();
     const [showMark, setShowMark] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const { admin } = useContext(adminContext);
+
     useEffect(() => {
         const fetchMark = async () => {
             try {
-                const response = await api.get(`/markList/${id}`, { withCredentials: true });
+                const response = await api.get(`/markList/${ id || studentId}`, { withCredentials: true });
                 setShowMark(response.data);
                 setLoading(false);
-                console.log(response.data);
             } catch (error) {
-                console.error('Error fetching mark list', error);
                 toast.error('Error fetching mark list');
                 setLoading(false);
             }
@@ -75,11 +77,18 @@ const ShowMark = () => {
                                         <TableRow>
                                             <TableCell sx={{ backgroundColor: '#d50000', fontWeight: 'bold', fontSize: '1rem', color: 'white' }}>Total Marks Obtained : {markList.totalMarksObtained}</TableCell>
                                             <TableCell sx={{ backgroundColor: '#d50000', fontWeight: 'bold', fontSize: '1rem', color: 'white' }}>Average Mark: {markList.averageMark}</TableCell>
-                                            <TableCell sx={{ backgroundColor: '#d50000', fontWeight: 'bold', fontSize: '1rem', color: 'white' }}>Percentage: {markList.percentage}</TableCell>
+                                            <TableCell sx={{ backgroundColor: '#d50000', fontWeight: 'bold', fontSize: '1rem', color: 'white' }}>Percentage: {markList.percentage}%</TableCell>
                                         </TableRow>
                                     </TableBody>
-                                </Table>
-                                <Button ant='contained' size='small' sx={{bgcolor:'#d50000', color:'white', marginTop:'.5rem'}} onClick={()=>{handleDeleteMarkList(markList._id)}}>delete</Button>
+                                </Table>{
+                                    admin && (
+                                    <Button
+                                    variant='contained'
+                                    size='small'
+                                    sx={{ bgcolor: '#d50000', color: 'white', marginTop: '.5rem' }}
+                                    onClick={() => { handleDeleteMarkList(markList._id) }}
+                                    >Delete</Button>
+                                    )}
                             </TableContainer>
                         </Paper>
                     ))
