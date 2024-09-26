@@ -112,36 +112,7 @@ const getStudentById = asyncHandler(async(req, res) =>{
     }
 });
 
-// @desc filter students
-// route GET /api/students
-// const getFilteredStudents = asyncHandler(async(req, res) =>{
-//     //Extract query parameter for filtering and sorting
-//     const {
-//         class : studentClass,
-//         name,
-//         admissionNumber,
-//         sortBy = 'admissionNumber',
-//         order = 'asc'} = req.query
-        
-//         // Build the filter object based on the available query parameters
-//         const filter = {};
-//         if(studentClass) {
-//             filter.class = studentClass;
-//         }
-//         if(name) {
-//             filter.name = new RegExp(name, 'i');// Case-insensitive search by name
-//         }
-//         if(admissionNumber) {
-//             filter.admissionNumber = admissionNumber;
-//         }
-        
-//         // Sorting option (asc for ascending or desc for descending)
-//         const sortOrder = order === 'desc'? -1 : 1;
 
-//         // Fetch filtered and sorted student data from the database
-//         const students = await StudentData.find(filter).sort({ [sortBy]: sortOrder });
-//         res.status(200).json(students)
-// })
 export {
     createAdminAccount, 
     loginAdmin,
