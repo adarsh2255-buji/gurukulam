@@ -69,7 +69,7 @@ const router = createBrowserRouter([
           </AdminProtectedRoute>
         )},
       { 
-        path : '/admin/updateProfile/:id',
+        path : '/admin/updateStudent/:id',
         element: (
           <AdminProtectedRoute>
             <UpdateProfile />
