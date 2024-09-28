@@ -19,6 +19,11 @@ const teacherSchema = mongoose.Schema({
         required : true,
         minlength : 6,
     },
+    class : {
+        type: String,
+        required: true,
+        enum: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', "XII"],
+    },
     role : {
         type : String,
         default :'teacher',

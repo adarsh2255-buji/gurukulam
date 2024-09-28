@@ -6,7 +6,6 @@ import Registration from './Components/Registration'
 import Login from './Components/Login'
 import StudentProvider from './context/StudentContext'
 import Dashboard from './Components/Dashboard'
-// import AdminLogin from './Components/Admin/AdminLogin'
 import AdminProvider from './context/AdminContext'
 import GetAllStudents from './Components/Admin/GetAllStudents'
 import StudentsDetails from './Components/Admin/StudentsDetails'
@@ -16,6 +15,11 @@ import AdminLayout from './Components/Admin/AdminLayout'
 import AdminLogin from './Components/Admin/AdminLogin'
 import StudentProtectedRoute from './protectedRoute/StudentProtectedRoute'
 import AdminProtectedRoute from './protectedRoute/AdminProtectedRoute'
+import TeacherLayout from './Components/Teacher/TeacherLayout'
+import TeacherProvider from './context/teacherContext'
+import TeacherLogin from './Components/Teacher/TeacherLogin'
+import TeacherHome from './Components/Teacher/TeacherHome'
+import TeacherProtectedRoute from './protectedRoute/TeacherProtectedRoute'
 
 
 
@@ -76,15 +80,35 @@ const router = createBrowserRouter([
           </AdminProtectedRoute>
         )},
     ]
-   }
+   },
+   // Teacher section routes
+   {
+    path: '/teacher',
+    element: <TeacherLayout />,
+    children :[{
+      path: '',
+      element: <TeacherLogin />
+    }, {
+      path: '/teacher/home',
+      element: (
+        <TeacherProtectedRoute>
+          <TeacherHome />
+        </TeacherProtectedRoute>
+      )
+    }]
+}
 ])
+
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AdminProvider>
+      <TeacherProvider>
       <StudentProvider>
         <RouterProvider router={router}/>
       </StudentProvider>
+      </TeacherProvider>
     </AdminProvider>
   </StrictMode>,
 )

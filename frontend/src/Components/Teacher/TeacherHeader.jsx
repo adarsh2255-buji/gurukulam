@@ -1,45 +1,41 @@
 import React, { useContext, useState } from 'react'
-import { adminContext } from '../../context/AdminContext';
+
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { AppBar, Box, Button, Container, IconButton, Menu, Toolbar, Typography, Tooltip, Avatar, MenuItem } from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
-import { StudentContext } from '../../context/StudentContext';
+import { TeacherContext } from '../../context/teacherContext';
 
-const AdminHeader = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+const TeacherHeader = () => {
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const navigate = useNavigate();
-  const { handleLogout } = useContext( StudentContext )
-  const { admin, setAdmin } = useContext(adminContext)
+    const navigate = useNavigate();
+    const { teacher, handleLogout } = useContext(TeacherContext)
 
-  const pages = admin ? [
-    {name: 'LOGOUT', path: '/logout' },
-  ] : []
+    const pages = teacher ?[
+        { name : 'HOME', path: '/home'},
+        { name : 'LOGOUT', path: '/logout'},
+    ] : [];
+    const handleOpenNavMenu = (event) => {
+        setAnchorElNav(event.currentTarget);
+    };
+    const handleCloseNavMenu = () => {
+        setAnchorElNav(null);
+      };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  //handle logout
-  
+     
   const handleLogoutClick = () => {
-    handleLogout();
-    navigate('/admin');
+    handleLogout()
+    navigate('/teacher');
   }
+
   return (
     <>
-    <AppBar position='static' sx={{ background: '#d50000' }}>
+     <AppBar position='static' sx={{ background: '#d50000' }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'none' }, mr: 1 }} />
@@ -131,9 +127,11 @@ const AdminHeader = () => {
             <Tooltip title="Open settings">
               <IconButton sx={{ p: 0 }}>
                 {
-                  admin? (
+                  teacher? (
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                  ) : ("")
+                  ) : (
+                    ""
+                  )
                 }
               </IconButton>
             </Tooltip>
@@ -162,4 +160,4 @@ const AdminHeader = () => {
   )
 }
 
-export default AdminHeader
+export default TeacherHeader

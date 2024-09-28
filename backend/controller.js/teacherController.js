@@ -6,11 +6,11 @@ import generateToken from "../utils/generateToken.js";
 // @desc create a new teacher account
 // @route POST/api/teacher/create
 const createTeacherAccount = asyncHandler(async(req, res) =>{
-    const { name, email,  password } = req.body;
+    const { name, email,  password, class : className } = req.body;
 
     // validate inputs
-    if(!name || !password || !email) {
-        return res.status(400).json({ message: 'name, email, password are required' });
+    if(!name || !password || !email || !className) {
+        return res.status(400).json({ message: 'name, email, password and class are required' });
     }
 
      // Validate password length
@@ -32,10 +32,11 @@ const createTeacherAccount = asyncHandler(async(req, res) =>{
         name,
         email,
         password: hashedPassword,
+        class: className,
     });
     
     await teacher.save();
-    res.status(201).json({ message: 'account created', teacher })
+    res.status(201).json({ message: 'account created', teacher }) 
 });
 
 // @desc login teacher
