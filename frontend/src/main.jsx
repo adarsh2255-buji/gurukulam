@@ -20,6 +20,8 @@ import TeacherProvider from './context/teacherContext'
 import TeacherLogin from './Components/Teacher/TeacherLogin'
 import TeacherHome from './Components/Teacher/TeacherHome'
 import TeacherProtectedRoute from './protectedRoute/TeacherProtectedRoute'
+import Attendance from './Components/Teacher/Attendance'
+import ClassStudentsLIst from './Components/Teacher/ClassStudentsLIst'
 
 
 
@@ -95,7 +97,23 @@ const router = createBrowserRouter([
           <TeacherHome />
         </TeacherProtectedRoute>
       )
-    }]
+    }, {
+      path:'/teacher/attendance',
+      element:(
+        <TeacherProtectedRoute>
+          <Attendance />
+        </TeacherProtectedRoute>
+      )
+    },
+    {
+      path:'/teacher/classStudentsList',
+      element: (
+        <TeacherProtectedRoute>
+          <ClassStudentsLIst />
+        </TeacherProtectedRoute>
+      )
+    }
+  ]
 }
 ])
 

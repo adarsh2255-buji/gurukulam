@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { TeacherContext } from '../../context/teacherContext';
 import toast from 'react-hot-toast';
 import api from '../../api';
-import { Box, Button, Container, FormControl, Input,  InputLabel } from '@mui/material';
+import { Box, Button, Container, FormControl, Input,  InputLabel, MenuItem, Select } from '@mui/material';
 
 const TeacherLogin = () => {
     const navigate = useNavigate();
@@ -11,6 +11,7 @@ const TeacherLogin = () => {
 
     const [teacher, setTeacher] = useState({
         email : '',
+        class : '',
         password : '',
     });
 
@@ -56,6 +57,27 @@ const TeacherLogin = () => {
                     ></Input>
                 </FormControl>
 
+                <FormControl>
+                    <InputLabel>Class</InputLabel>
+                    <Select
+                    name='class'
+                    value={teacher.class}
+                    onChange={handleInputChange}>
+                        <MenuItem value={'I'}>I</MenuItem>
+                        <MenuItem value={'II'}>II</MenuItem>
+                        <MenuItem value={'III'}>III</MenuItem>
+                        <MenuItem value={'IV'}>IV</MenuItem>
+                        <MenuItem value={'V'}>V</MenuItem>
+                        <MenuItem value={'VI'}>VI</MenuItem>
+                        <MenuItem value={'VII'}>VII</MenuItem>
+                        <MenuItem value={'VIII'}>VIII</MenuItem>
+                        <MenuItem value={'IX'}>IX</MenuItem>
+                        <MenuItem value={'X'}>X</MenuItem>
+                        <MenuItem value={'XI'}>XI</MenuItem>
+                        <MenuItem value={'XII'}>XII</MenuItem>
+                    </Select>
+                </FormControl>
+                
                 <FormControl>
                     <InputLabel>Password</InputLabel>
                     <Input

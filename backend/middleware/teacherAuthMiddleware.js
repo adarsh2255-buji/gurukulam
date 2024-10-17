@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Teacher from '../models/teacher.js';
+import jwt from 'jsonwebtoken';
 
 const teacherProtect = asyncHandler(async (req, res, next) => {
     let token;

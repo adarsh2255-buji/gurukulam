@@ -2,14 +2,15 @@ import Teacher from "../models/teacher.js";
 import asyncHandler from 'express-async-handler';
 import bcrypt from 'bcrypt';
 import generateToken from "../utils/generateToken.js";
+import StudentData from "../models/studentsData.js";
 
 // @desc create a new teacher account
 // @route POST/api/teacher/create
 const createTeacherAccount = asyncHandler(async(req, res) =>{
-    const { name, email,  password, class : className } = req.body;
+    const { name, email,  password, class : teacherClass } = req.body;
 
     // validate inputs
-    if(!name || !password || !email || !className) {
+    if(!name || !password || !email || !teacherClass) {
         return res.status(400).json({ message: 'name, email, password and class are required' });
     }
 
@@ -32,7 +33,7 @@ const createTeacherAccount = asyncHandler(async(req, res) =>{
         name,
         email,
         password: hashedPassword,
-        class: className,
+        class: teacherClass,
     });
     
     await teacher.save();
@@ -43,11 +44,11 @@ const createTeacherAccount = asyncHandler(async(req, res) =>{
  // @route POST/api/teacher/login
  const loginTeacher = asyncHandler(async(req, res) =>{
 
-    const { email, password } = req.body;
+    const { email,password, class : teacherClass } = req.body;
 
     // validate inputs
-    if(!email ||!password) {
-        return res.status(400).json({ message: 'email and password are required' });
+    if(!email ||!password || !teacherClass) {
+        return res.status(400).json({ message: 'email, password, class are required' });
     }
 
     // check if teacher exists
@@ -69,11 +70,21 @@ const createTeacherAccount = asyncHandler(async(req, res) =>{
             message: 'Logged in successfully',
             id: teacher._id,
             name: teacher.name,
+            class: teacher.class,
         });
     } else {
         res.status(401).json({ message: 'Invalid credentials' });
     }
 });
-export { createTeacherAccount, loginTeacher}
+
+// Fetch students for the logged-in teacher's class
+const studentsForClassTeacher = asyncHandler(async(req, res) => {
+    const teacherClass = req.teacher.class;
+
+    //fetch students for the same class
+    const students = await StudentData.find({ class: teacherClass});
+    res.json(students);
+})
+export { createTeacherAccount, loginTeacher, studentsForClassTeacher}
 
     
